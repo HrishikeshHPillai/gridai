@@ -1,0 +1,38 @@
+#Empty lists to be populated using formatted training data
+trainX = []
+trainY = []
+
+n_future = 1   # Number of days we want to look into the future based on the past days.
+n_past = 14  # Number of past days we want to use to predict the future.
+
+#Reformat input data into a shape: (n_samples x timesteps x n_features)
+#In my example, my df_for_training_scaled has a shape (12823, 5)
+#12823 refers to the number of data points and 5 refers to the columns (multi-variables).
+for i in range(n_past, len(df_for_training_scaled) - n_future +1):
+    trainX.append(df_for_training_scaled[i - n_past:i, 0:df_for_training.shape[1]])
+    trainY.append(df_for_training_scaled[i + n_future - 1:i + n_future, 0])
+
+trainX, trainY = np.array(trainX), np.array(trainY)
+
+print('trainX shape == {}.'.format(trainX.shape))
+print('trainY shape == {}.'.format(trainY.shape))
+
+#In my case, trainX has a shape (12809, 14, 5). 
+#12809 because we are looking back 14 days (12823 - 14 = 12809). 
+#Remember that we cannot look back 14 days until we get to the 15th day. 
+#Also, trainY has a shape (12809, 1). Our model only predicts a single value, but 
+#it needs multiple variables (5 in my example) to make this prediction. 
+#This is why we can only predict a single day after our training, the day after where our data ends.
+#To predict more days in future, we need all the 5 variables which we do not have. 
+#We need to predict all variables if we want to do that. 
+
+# define the Autoencoder model
+
+model = Sequential()
+model.add(LSTM(64, activation='relu', input_shape=(trainX.shape[1], trainX.shape[2]), return_sequences=True))
+model.add(LSTM(32, activation='relu', return_sequences=False))
+model.add(Dropout(0.2))
+model.add(Dense(trainY.shape[1]))
+
+model.compile(optimizer='adam', loss='mse')
+model.summary()
