@@ -36,3 +36,43 @@ model.add(Dense(trainY.shape[1]))
 
 model.compile(optimizer='adam', loss='mse')
 model.summary()
+
+
+
+
+WINDOW = 38
+HORIZON = 1
+X = []
+y = []
+for i in range(0, len(X_np)):
+    X.append(X_np[0:WINDOW])
+y = y_np[39:]
+y
+
+def create_time_windows(data, window_size, step_size):
+    windows = []
+    targets = []
+
+    for i in range(0, len(data) - window_size, step_size):
+        window = data.iloc[i:i + window_size]
+        target = data['Radiation'].iloc[i + window_size]  # Assuming 'Radiation' is the target variable
+
+        windows.append(window.values)
+        targets.append(target)
+
+    return windows, targets
+
+X, y = create_time_windows(df, 38, 1)
+X, y
+
+
+
+WINDOW = 38
+HORIZON = 1
+X_train = []
+
+y_train = []
+for i in range(0, len(X_np)):
+    X_train.append(X_np[0:WINDOW])
+y_train = y[39:]
+y_train
