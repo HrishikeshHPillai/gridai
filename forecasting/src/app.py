@@ -12,7 +12,7 @@ st.set_page_config(
 )
 
 # read csv from a github repo
-dataset_url ="/home/navneeth/Egopro/dnn/gridai/forecasting/datasets/SolarPrediction2.csv"
+dataset_url ="/Users/hrishikeshhpillai/Documents/hrishi/deeplearning/gridai/forecasting/datasets/SolarPrediction2.csv"
 
 
 # read csv from a URL
@@ -107,26 +107,22 @@ for seconds in range(200):
         st.markdown("## Insights")
 
         col1, col2, col3 = st.columns(3)
-
-        col1.text_area(
-            label="Radiation",
-            value="The average radiation is increasing by 10% compared to the previous year",
-            key="r_id",
-        )
-        col2.text_area(
-            label="Tempreature",
-            value="The average temperature is increasing by 10% compared to the previous year",
-            key="t_id",
-
-        )
+        with col1:
+            st.text_area(
+                label="Radiation",
+                value="The average radiation is increasing by 10% compared to the previous year"
+            )
+        with col2:
+            st.text_area(
+                label="Tempreature",
+                value="The average temperature is increasing by 10% compared to the previous year"
+            )
+        with col3:
         # increase font size
-
-        
-        col3.text_area(
-            label="Pressure",
-            value="The average pressure is increasing by 10% compared to the previous year",
-            key="p_id",
-        )
+            st.text_area(
+                label="Pressure",
+                value="The average pressure is increasing by 10% compared to the previous year"
+            )
 
         # create two columns for charts
         fig_col1, fig_col2 = st.columns(2)
@@ -139,7 +135,7 @@ for seconds in range(200):
 
         #time series chart for radiation
         with fig_col1:
-            st.markdown("### Radition Chart")
+            st.markdown("### Radiation Chart")
             fig = px.line(
                 data_frame=df, y="Radiation_new", x="datetime"
             )
@@ -148,7 +144,7 @@ for seconds in range(200):
         #time series chart for temperature
 
         with fig_col2:
-            st.markdown("### Tempreture Chart")
+            st.markdown("### Tempereture Chart")
             fig = px.line(
                 data_frame=df, y="Temperature_new", x="datetime"
             )
@@ -157,7 +153,7 @@ for seconds in range(200):
         st.markdown("### Detailed Data View")
         st.dataframe(df)
 
-        st.button("Load Shedding")
+        # st.button("Load Shedding")
 
         
         
