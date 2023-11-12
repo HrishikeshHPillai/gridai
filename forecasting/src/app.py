@@ -108,25 +108,26 @@ for seconds in range(200):
 
         col1, col2, col3 = st.columns(3)
 
-        col1.text_area(
-            label="Radiation",
-            value="The average radiation is increasing by 10% compared to the previous year",
-            key="r_id",
-        )
-        col2.text_area(
-            label="Tempreature",
-            value="The average temperature is increasing by 10% compared to the previous year",
-            key="t_id",
+#         col1.text_area(
+#     label="Radiation",
+#     value="The average radiation is increasing by 10% compared to the previous year",
+#     key=hash("Radiation") & 0xffffffffffffffff,
+# )
 
-        )
-        # increase font size
+#         col2.text_area(
+#             label="Temperature",
+#             value="The average temperature is increasing by 10% compared to the previous year",
+#             key=hash("Temperature") & 0xffffffffffffffff,
+#         )
 
-        
-        col3.text_area(
-            label="Pressure",
-            value="The average pressure is increasing by 10% compared to the previous year",
-            key="p_id",
-        )
+#         col3.text_area(
+#             label="Pressure",
+#             value="The average pressure is increasing by 10% compared to the previous year",
+#             key=hash("Pressure") & 0xffffffffffffffff,
+#         )
+
+
+
 
         # create two columns for charts
         fig_col1, fig_col2 = st.columns(2)
@@ -157,8 +158,6 @@ for seconds in range(200):
         st.markdown("### Detailed Data View")
         st.dataframe(df)
 
-        st.button("Load Shedding")
-
-        
+            
         
         time.sleep(1)
